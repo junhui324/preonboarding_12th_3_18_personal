@@ -1,0 +1,22 @@
+.item {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 2rem;
+	width: 65%;
+	margin: 2rem auto;
+	padding-bottom: 2rem;
+	border-bottom: 1px solid #bebebe;
+	cursor: pointer;
+}
+.info {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	flex-wrap: wrap;
+}
+
+.subInfo,
+.issueNumber {
+	color: #505050;
+}
