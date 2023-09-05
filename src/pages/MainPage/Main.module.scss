@@ -3,8 +3,9 @@
 	justify-content: center;
 	align-items: center;
 	height: 100vh;
+
 	button {
-		font-size: 60px;
+		font-size: 2rem;
 		border: none;
 		border-radius: 10px;
 		background-color: #58a9df;
@@ -15,6 +16,48 @@
 		&:hover {
 			background-color: #53baff;
 			scale: 1.1;
+		}
+	}
+}
+
+.searchContainer {
+	width: 45%;
+	display: flex;
+	flex-direction: column;
+
+	.inputContainer {
+		width: 100%;
+		height: 72px;
+
+		.input {
+			width: 90%;
+			height: 90%;
+			border-radius: 42px;
+			border: 2px solid;
+			border-color: #ffffff;
+			background-color: #ffffff;
+			flex-direction: row;
+			align-items: center;
+			font-size: 1rem;
+			font-weight: 400;
+			letter-spacing: -0.018em;
+			line-height: 1.6;
+			display: flex;
+			position: relative;
+			padding-right: 8px;
+		}
+	}
+
+	.resultsContainer {
+		margin-top: 10px;
+		max-height: 300px; /* 스크롤 가능한 높이를 조절하세요. */
+		overflow-y: auto;
+		width: 90%;
+
+		.resultItem {
+			/* 결과 항목의 스타일을 정의하세요. */
+			padding: 8px;
+			border-bottom: 1px solid #ccc;
 		}
 	}
 }
