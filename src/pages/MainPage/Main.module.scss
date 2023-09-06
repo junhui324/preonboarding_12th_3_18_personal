@@ -34,17 +34,21 @@
 			height: 90%;
 			border-radius: 42px;
 			border: 2px solid;
-			border-color: #ffffff;
+			border-color: #e2dfdf;
 			background-color: #ffffff;
 			flex-direction: row;
 			align-items: center;
-			font-size: 1rem;
+			font-size: 1.1rem;
 			font-weight: 400;
 			letter-spacing: -0.018em;
 			line-height: 1.6;
 			display: flex;
 			position: relative;
 			padding-right: 8px;
+			padding-left: 20px;
+			&::placeholder {
+				padding: 3px;
+			}
 		}
 	}
 
@@ -54,10 +58,19 @@
 		overflow-y: auto;
 		width: 90%;
 
+		span {
+			font-weight: 700;
+		}
+
 		.resultItem {
-			/* 결과 항목의 스타일을 정의하세요. */
 			padding: 8px;
 			border-bottom: 1px solid #ccc;
+		}
+
+		.focusedItem {
+			background-color: #0078d4;
+			color: white;
+			font-weight: 700;
 		}
 	}
 }
