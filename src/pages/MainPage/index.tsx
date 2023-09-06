@@ -104,6 +104,9 @@ export default function MainPage() {
 
 		if (e.key === 'ArrowDown') {
 			e.preventDefault();
+			if (resultRefs.current[0]) {
+				resultRefs.current[0].focus();
+			}
 			setFocusedIndex(0);
 			inputRef.current?.blur();
 		} else if (e.key === 'ArrowUp') {
