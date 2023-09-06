@@ -3,21 +3,10 @@
 	justify-content: center;
 	align-items: center;
 	height: 100vh;
+}
 
-	button {
-		font-size: 2rem;
-		border: none;
-		border-radius: 10px;
-		background-color: #58a9df;
-		color: white;
-		padding: 10px 20px;
-		cursor: pointer;
-		transition: background-color 0.3s;
-		&:hover {
-			background-color: #53baff;
-			scale: 1.1;
-		}
-	}
+span {
+	font-weight: 700;
 }
 
 .searchContainer {
@@ -28,6 +17,7 @@
 	.inputContainer {
 		width: 100%;
 		height: 72px;
+		display: flex;
 
 		.input {
 			width: 90%;
@@ -50,6 +40,23 @@
 				padding: 3px;
 			}
 		}
+
+		button {
+			width: 72px;
+			height: 72px;
+			font-size: 2rem;
+			border: none;
+			border-radius: 42px;
+			background-color: #58a9df;
+			color: white;
+			padding: 19px 19px;
+			cursor: pointer;
+			transition: background-color 0.3s;
+			&:hover {
+				background-color: #53baff;
+				scale: 1.1;
+			}
+		}
 	}
 
 	.resultsContainer {
@@ -57,10 +64,6 @@
 		max-height: 300px; /* 스크롤 가능한 높이를 조절하세요. */
 		overflow-y: auto;
 		width: 90%;
-
-		span {
-			font-weight: 700;
-		}
 
 		.resultItem {
 			padding: 8px;

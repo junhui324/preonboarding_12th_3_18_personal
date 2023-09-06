@@ -9,6 +9,7 @@ export default function MainPage() {
 	const [debouncedInput, setDebouncedInput] = useState('');
 	const [searchResults, setSearchResults] = useState([]);
 	const [searchStatus, setSearchStatus] = useState('');
+	const [showRecommendations, setShowRecommendations] = useState(false);
 
 	const [focusedIndex, setFocusedIndex] = useState(-1);
 	const inputRef = useRef<HTMLInputElement | null>(null);
@@ -138,6 +139,14 @@ export default function MainPage() {
 		}
 	};
 
+	const handleInputFocus = () => {
+		setShowRecommendations(true);
+	};
+
+	const handleInputBlur = () => {
+		setShowRecommendations(false);
+	};
+
 	return (
 		<div className={styles.container}>
 			<div className={styles.searchContainer}>
@@ -147,14 +156,19 @@ export default function MainPage() {
 						value={input}
 						onChange={handleChangeInput}
 						onKeyDown={handleKeyDown}
+						onFocus={handleInputFocus}
+						onBlur={handleInputBlur}
 						placeholder="검색어를 입력해주세요."
 						ref={inputRef}
 					></input>
+					<button onClick={() => getClinicalTrialData(debouncedInput)}>
+						<BiSearch />
+					</button>
 				</div>
 
 				<div className={styles.resultsContainer}>
-					<span>추천 검색어</span>
-					{searchStatus || searchResults.length === 0 ? (
+					{showRecommendations ? <span>추천 검색어</span> : ''}
+					{showRecommendations && (searchStatus || searchResults.length === 0) ? (
 						<div className={styles.resultItem}>{searchStatus}</div>
 					) : (
 						searchResults.map((result: any, index) => (
@@ -174,9 +188,6 @@ export default function MainPage() {
 					)}
 				</div>
 			</div>
-			<button onClick={() => getClinicalTrialData(debouncedInput)}>
-				<BiSearch />
-			</button>
 		</div>
 	);
 }
