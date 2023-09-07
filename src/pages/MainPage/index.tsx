@@ -10,6 +10,8 @@ import { handleKeyDown, handleResultKeyDown } from '../../utils/functions/KeyDow
 import handleInputChange from '../../utils/functions/ChangeInput';
 import { fetchClinicalTrialData } from '../../utils/functions/FetchDataCache';
 
+import { INFORMATION_TEXT } from '../../utils/constants/constants';
+
 export default function MainPage() {
 	const [input, setInput] = useState('');
 	const debouncedInput = useDebounce(input, 500);
@@ -46,7 +48,7 @@ export default function MainPage() {
 			}
 		} else {
 			setSearchResults([]);
-			setSearchStatus('검색어 없음');
+			setSearchStatus(INFORMATION_TEXT.NO_SEARCH);
 		}
 	}, [debouncedInput]);
 
@@ -66,7 +68,6 @@ export default function MainPage() {
 		await fetchClinicalTrialData(
 			query,
 			cachedData,
-			cacheExpireTimes,
 			setCachedData,
 			setCacheExpireTimes,
 			setSearchResults,

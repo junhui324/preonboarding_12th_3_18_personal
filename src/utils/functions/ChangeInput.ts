@@ -1,4 +1,5 @@
 import React from 'react';
+import { INFORMATION_TEXT } from '../constants/constants';
 
 export default function handleInputChange(
 	e: React.ChangeEvent<HTMLInputElement>,
@@ -10,6 +11,6 @@ export default function handleInputChange(
 	setInput(inputValue);
 	if (!inputValue) {
 		setSearchResults([]);
-		setSearchStatus('검색어 없음');
+		setSearchStatus(INFORMATION_TEXT.NO_SEARCH);
 	}
 }

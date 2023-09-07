@@ -5,7 +5,6 @@ import { setCacheData } from './CatchStorageCache';
 export async function fetchClinicalTrialData(
 	query: string,
 	cachedData: { [key: string]: any },
-	cacheExpireTimes: { [key: string]: number },
 	setCachedData: React.Dispatch<React.SetStateAction<{ [key: string]: any }>>,
 	setCacheExpireTimes: React.Dispatch<React.SetStateAction<{ [key: string]: number }>>,
 	setSearchResults: React.Dispatch<React.SetStateAction<any[]>>,
