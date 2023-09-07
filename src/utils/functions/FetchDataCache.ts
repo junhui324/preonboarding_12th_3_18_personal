@@ -8,7 +8,6 @@ export async function fetchClinicalTrialData(
 	setCachedData: React.Dispatch<React.SetStateAction<{ [key: string]: any }>>,
 	setCacheExpireTimes: React.Dispatch<React.SetStateAction<{ [key: string]: number }>>,
 	setSearchResults: React.Dispatch<React.SetStateAction<any[]>>,
-	setSearchStatus: React.Dispatch<React.SetStateAction<string>>,
 ) {
 	try {
 		const res = await getClinicalTrial(query);
@@ -25,7 +24,6 @@ export async function fetchClinicalTrialData(
 
 		setCachedData({ ...cachedData, [query]: res });
 		setSearchResults(res);
-		setSearchStatus('');
 		console.info('calling api');
 	} catch (error) {
 		console.error(error);

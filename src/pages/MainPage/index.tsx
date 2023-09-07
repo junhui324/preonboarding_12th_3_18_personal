@@ -9,7 +9,6 @@ import { handleKeyDown } from '../../utils/functions/KeyDown';
 import handleInputChange from '../../utils/functions/ChangeInput';
 import { fetchClinicalTrialData } from '../../utils/functions/FetchDataCache';
 
-import { INFORMATION_TEXT } from '../../utils/constants/constants';
 import { BiSearch } from 'react-icons/bi';
 
 export default function MainPage() {
@@ -17,7 +16,6 @@ export default function MainPage() {
 	const debouncedInput = useDebounce(input, 500);
 
 	const [searchResults, setSearchResults] = useState<any[]>([]);
-	const [searchStatus, setSearchStatus] = useState('');
 	const [showRecommendations, setShowRecommendations] = useState(false);
 
 	const [focusedIndex, setFocusedIndex] = useState(-1);
@@ -42,13 +40,11 @@ export default function MainPage() {
 		if (debouncedInput) {
 			if (cachedData[debouncedInput] && cacheExpireTimes[debouncedInput] > Date.now()) {
 				setSearchResults(cachedData[debouncedInput]);
-				setSearchStatus('');
 			} else {
 				fetchData(debouncedInput);
 			}
 		} else {
 			setSearchResults([]);
-			setSearchStatus(INFORMATION_TEXT.NO_SEARCH);
 		}
 	}, [debouncedInput]);
 
@@ -71,7 +67,6 @@ export default function MainPage() {
 			setCachedData,
 			setCacheExpireTimes,
 			setSearchResults,
-			setSearchStatus,
 		);
 	};
 
@@ -86,7 +81,7 @@ export default function MainPage() {
 					<input
 						className={styles.input}
 						value={input}
-						onChange={e => handleInputChange(e, setInput, setSearchResults, setSearchStatus)}
+						onChange={e => handleInputChange(e, setInput, setSearchResults)}
 						onKeyDown={e => handleKeyDown(e, searchResults, resultRefs, setFocusedIndex, inputRef)}
 						onFocus={() => setShowRecommendations(true)}
 						onBlur={() => setShowRecommendations(false)}
@@ -103,7 +98,6 @@ export default function MainPage() {
 					focusedIndex={focusedIndex}
 					inputRef={inputRef}
 					showRecommendations={showRecommendations}
-					searchStatus={searchStatus}
 					resultRefs={resultRefs}
 					setFocusedIndex={setFocusedIndex}
 					setInput={setInput}

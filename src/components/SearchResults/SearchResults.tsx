@@ -8,7 +8,6 @@ interface SearchResultsProps {
 	focusedIndex: number;
 	inputRef: React.RefObject<HTMLInputElement | null>;
 	showRecommendations: boolean;
-	searchStatus: string;
 	resultRefs: React.MutableRefObject<(HTMLDivElement | null)[]>;
 	setFocusedIndex: React.Dispatch<React.SetStateAction<number>>;
 	setInput: React.Dispatch<React.SetStateAction<string>>;
@@ -19,7 +18,6 @@ export default function SearchResults({
 	focusedIndex,
 	inputRef,
 	showRecommendations,
-	searchStatus,
 	resultRefs,
 	setFocusedIndex,
 	setInput,
@@ -27,8 +25,8 @@ export default function SearchResults({
 	return (
 		<div className={styles.resultsContainer}>
 			{showRecommendations ? <span>추천 검색어</span> : ''}
-			{showRecommendations && (searchStatus || searchResults.length === 0) ? (
-				<div className={styles.resultItem}>{searchStatus}</div>
+			{showRecommendations && searchResults.length === 0 ? (
+				<div className={styles.resultItem}>검색어 없음</div>
 			) : (
 				searchResults.slice(0, 7).map((result, index) => (
 					<div
