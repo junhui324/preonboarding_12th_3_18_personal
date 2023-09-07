@@ -1,13 +1,14 @@
 import styles from './Main.module.scss';
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { BiSearch } from 'react-icons/bi';
 
 import useDebounce from '../../utils/hooks/useDebounce';
-import { removeExpiredCacheData } from '../../utils/functions/localStorageCache';
+import { removeExpiredCacheData } from '../../utils/functions/CatchStorageCache';
+
 import { handleKeyDown, handleResultKeyDown } from '../../utils/functions/KeyDown';
 import handleInputChange from '../../utils/functions/ChangeInput';
-import { fetchClinicalTrialData } from '../../utils/functions/FetchData';
+import { fetchClinicalTrialData } from '../../utils/functions/FetchDataCache';
 
 export default function MainPage() {
 	const [input, setInput] = useState('');
@@ -25,11 +26,10 @@ export default function MainPage() {
 	const [cacheExpireTimes, setCacheExpireTimes] = useState<{ [key: string]: number }>({});
 
 	useEffect(() => {
-		removeExpiredCacheData(cachedData, cacheExpireTimes);
-
+		handleRemoveExpiredCacheData();
 		const expirationCheckInterval = setInterval(() => {
-			removeExpiredCacheData(cachedData, cacheExpireTimes);
-		}, 90000);
+			handleRemoveExpiredCacheData();
+		}, 70000);
 
 		return () => {
 			clearInterval(expirationCheckInterval);
@@ -74,12 +74,8 @@ export default function MainPage() {
 		);
 	};
 
-	const handleInputFocus = () => {
-		setShowRecommendations(true);
-	};
-
-	const handleInputBlur = () => {
-		setShowRecommendations(false);
+	const handleRemoveExpiredCacheData = async () => {
+		await removeExpiredCacheData(cacheExpireTimes);
 	};
 
 	return (
@@ -91,8 +87,8 @@ export default function MainPage() {
 						value={input}
 						onChange={e => handleInputChange(e, setInput, setSearchResults, setSearchStatus)}
 						onKeyDown={e => handleKeyDown(e, searchResults, resultRefs, setFocusedIndex, inputRef)}
-						onFocus={handleInputFocus}
-						onBlur={handleInputBlur}
+						onFocus={() => setShowRecommendations(true)}
+						onBlur={() => setShowRecommendations(false)}
 						placeholder="검색어를 입력해주세요."
 						ref={inputRef}
 					></input>

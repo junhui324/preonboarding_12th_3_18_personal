@@ -1,6 +1,6 @@
 import React from 'react';
 import { getClinicalTrial } from '../../api/Api';
-import { setCacheData } from './LocalStorageCache';
+import { setCacheData } from './CatchStorageCache';
 
 export async function fetchClinicalTrialData(
 	query: string,
@@ -13,14 +13,18 @@ export async function fetchClinicalTrialData(
 ) {
 	try {
 		const res = await getClinicalTrial(query);
-		const cacheKey = 'clinicalTrialCache_' + query;
+		const cacheKey = encodeURIComponent(query.replace(/^https?:\/\/[^/]+/, ''));
 
 		const cacheData = { data: res, expires: Date.now() + 60000 };
 
-		setCacheData(cacheKey, cacheData.data, cacheData.expires);
+		await setCacheData(cacheKey, cacheData.data, cacheData.expires);
+
+		setCacheExpireTimes(prevCacheExpireTimes => ({
+			...prevCacheExpireTimes,
+			[decodeURIComponent(cacheKey)]: cacheData.expires,
+		}));
 
 		setCachedData({ ...cachedData, [query]: res });
-		setCacheExpireTimes({ ...cacheExpireTimes, [query]: cacheData.expires });
 		setSearchResults(res);
 		setSearchStatus('');
 		console.info('calling api');
