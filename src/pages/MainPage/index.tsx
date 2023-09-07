@@ -1,16 +1,16 @@
 import styles from './Main.module.scss';
 import { useEffect, useRef, useState } from 'react';
-
-import { BiSearch } from 'react-icons/bi';
+import SearchResults from '../../components/SearchResults/SearchResults';
 
 import useDebounce from '../../utils/hooks/useDebounce';
-import { removeExpiredCacheData } from '../../utils/functions/CatchStorageCache';
 
-import { handleKeyDown, handleResultKeyDown } from '../../utils/functions/KeyDown';
+import { removeExpiredCacheData } from '../../utils/functions/CatchStorageCache';
+import { handleKeyDown } from '../../utils/functions/KeyDown';
 import handleInputChange from '../../utils/functions/ChangeInput';
 import { fetchClinicalTrialData } from '../../utils/functions/FetchDataCache';
 
 import { INFORMATION_TEXT } from '../../utils/constants/constants';
+import { BiSearch } from 'react-icons/bi';
 
 export default function MainPage() {
 	const [input, setInput] = useState('');
@@ -98,29 +98,16 @@ export default function MainPage() {
 					</button>
 				</div>
 
-				<div className={styles.resultsContainer}>
-					{showRecommendations ? <span>추천 검색어</span> : ''}
-					{showRecommendations && (searchStatus || searchResults.length === 0) ? (
-						<div className={styles.resultItem}>{searchStatus}</div>
-					) : (
-						searchResults.map((result: any, index) => (
-							<div
-								key={index}
-								className={`${styles.resultItem} ${
-									focusedIndex === index ? styles.focusedItem : ''
-								}`}
-								tabIndex={0}
-								onKeyDown={e =>
-									handleResultKeyDown(e, index, searchResults, setFocusedIndex, inputRef)
-								}
-								ref={ref => (resultRefs.current[index] = ref)}
-							>
-								<BiSearch />
-								{' ' + result.sickNm}
-							</div>
-						))
-					)}
-				</div>
+				<SearchResults
+					searchResults={searchResults}
+					focusedIndex={focusedIndex}
+					inputRef={inputRef}
+					showRecommendations={showRecommendations}
+					searchStatus={searchStatus}
+					resultRefs={resultRefs}
+					setFocusedIndex={setFocusedIndex}
+					setInput={setInput}
+				/>
 			</div>
 		</div>
 	);

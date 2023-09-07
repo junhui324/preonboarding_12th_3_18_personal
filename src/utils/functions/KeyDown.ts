@@ -16,10 +16,6 @@ function handleKeyDown(
 		}
 		setFocusedIndex(0);
 		inputRef.current?.blur();
-	} else if (e.key === 'ArrowUp') {
-		e.preventDefault();
-		setFocusedIndex(-1);
-		inputRef.current?.focus();
 	}
 }
 
@@ -27,8 +23,10 @@ function handleResultKeyDown(
 	e: React.KeyboardEvent<HTMLDivElement>,
 	index: number,
 	searchResults: any[],
-	setFocusedIndex: React.Dispatch<React.SetStateAction<number>>,
 	inputRef: React.RefObject<HTMLInputElement | null>,
+	result: any,
+	setFocusedIndex: React.Dispatch<React.SetStateAction<number>>,
+	setInput: React.Dispatch<React.SetStateAction<string>>,
 ) {
 	if (e.key === 'ArrowDown') {
 		e.preventDefault();
@@ -39,7 +37,9 @@ function handleResultKeyDown(
 		const prevIndex = (index - 1 + searchResults.length) % searchResults.length;
 		setFocusedIndex(prevIndex);
 	} else if (e.key === 'Enter') {
+		setInput(result.sickNm);
 		inputRef.current?.focus();
+		//setFocusedIndex(0);
 	}
 }
 
