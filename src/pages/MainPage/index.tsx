@@ -2,7 +2,7 @@ import styles from './Main.module.scss';
 import { useEffect, useRef, useState } from 'react';
 import SearchResults from '../../components/SearchResults/SearchResults';
 
-import useDebounce from '../../utils/hooks/useDebounce';
+import useDebounce from '../../hooks/useDebounce';
 
 import { removeExpiredCacheData } from '../../utils/functions/CatchStorageCache';
 import { handleKeyDown } from '../../utils/functions/KeyDown';
